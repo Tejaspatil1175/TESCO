@@ -1,117 +1,138 @@
-# 🤖 RetailSync AI - Training Pipeline
+# 🤖 RetailSync AI – Training Pipeline
 
 ## Overview
 
-This directory contains the complete training pipeline for RetailSync AI's **Ad Quality Scoring** and **Compliance Prediction** models.
+This repository contains the complete **machine learning training pipeline** for **RetailSync AI**, focused on:
+
+- **Ad Quality Scoring** (0–100)
+- **Creative Compliance Prediction** (Pass / Fail)
+
+The pipeline trains a **custom CNN model**, exports it for **browser-based inference using TensorFlow.js**, and generates all required logs, metrics, and model artifacts for evaluation and deployment.
+
+This project is designed as a **production-ready proof of concept** that can be extended using real-world retail ad datasets.
 
 ---
 
-## 📂 Directory Structure
+## 📂 Project Structure
 
-```
 training/
-├── train_ad_quality_model.py    # Main training script
-├── prepare_data.py               # Data preparation & generation
-├── inference.py                  # Model inference/testing
-├── requirements.txt              # Python dependencies
-└── README.md                     # This file
+├── train_ad_quality_model.py # Main training script
+├── prepare_data.py # Synthetic data generation
+├── inference.py # Model inference & testing
+├── requirements.txt # Python dependencies
+└── README.md # Documentation
 
-Generated after training:
-../models/
-├── ad_quality_model_latest.keras    # Trained model (Keras format)
-├── ad_quality_model_YYYYMMDD.keras  # Timestamped backup
-├── best_model.keras                  # Best model checkpoint
-├── tfjs_model/                       # TensorFlow.js web format
-│   ├── model.json
-│   └── group1-shard*.bin
-└── model_metadata.json               # Training metadata
+models/
+├── ad_quality_model_latest.keras
+├── ad_quality_model_YYYYMMDD.keras
+├── best_model.keras
+├── tfjs_model/
+│ ├── model.json
+│ └── group1-shard*.bin
+└── model_metadata.json
 
-../logs/
-├── training_curves.png           # Loss & MAE plots
-└── training_log.json             # Detailed training history
+logs/
+├── training_curves.png
+└── training_log.json
 
-../data/
-├── synthetic_ads/                # Generated training images
-└── dataset_metadata.json         # Dataset info
-```
+data/
+├── synthetic_ads/
+└── dataset_metadata.json
+
+yaml
+Copy code
 
 ---
 
-## 🚀 Quick Start
+## 🚀 Getting Started
 
-### Step 1: Install Dependencies
+### 1️⃣ Install Dependencies
 
 ```bash
 cd training
 pip install -r requirements.txt
-```
+Requirements
 
-**Requirements:**
-- Python 3.8+
-- TensorFlow 2.15+
-- 2GB free disk space
-- GPU (optional, speeds up training)
+Python 3.8+
 
-### Step 2: Prepare Data (Optional)
+TensorFlow 2.15+
 
-```bash
+~2GB free disk space
+
+GPU optional (recommended)
+
+2️⃣ Generate Training Data (Optional)
+bash
+Copy code
 python prepare_data.py
-```
+Generates synthetic ad images with multiple quality levels
 
-This generates 200 synthetic ad images with varying quality levels. The main training script will also generate data automatically if needed.
+Automatically handled by the training script if missing
 
-### Step 3: Train Model
-
-```bash
+3️⃣ Train the Model
+bash
+Copy code
 python train_ad_quality_model.py
-```
+Training Pipeline
 
-**Training time:** ~5-10 minutes on CPU, ~2-3 minutes on GPU
+Generates ~1000 synthetic samples
 
-**What happens:**
-1. Generates 1000 synthetic training samples
-2. Builds CNN model architecture
-3. Trains for up to 20 epochs (with early stopping)
-4. Saves model in multiple formats
-5. Generates training curves and logs
+Builds a CNN architecture from scratch
 
-### Step 4: Test Model
+Trains with early stopping
 
-```bash
+Saves the best-performing model
+
+Exports model to TensorFlow.js
+
+Generates logs and training curves
+
+⏱ Training Time
+
+CPU: ~5–10 minutes
+
+GPU: ~2–3 minutes
+
+4️⃣ Test Model Inference
+bash
+Copy code
 python inference.py
-```
+Runs predictions on sample images and outputs:
 
-Tests the trained model on sample images from `../assets/` folder.
+Quality score
 
----
+Compliance probability
 
-## 🎯 Model Architecture
+🧠 Model Architecture
+Input: RGB Images (224 × 224 × 3)
 
-**Input:** RGB images (224×224×3)
+scss
+Copy code
+Data Augmentation
+↓
+Conv2D(32) + MaxPool + BatchNorm
+↓
+Conv2D(64) + MaxPool + BatchNorm
+↓
+Conv2D(128) + MaxPool + BatchNorm
+↓
+Conv2D(256) + GlobalAveragePooling
+↓
+Dense(256) + Dropout(0.4)
+↓
+Dense(128) + Dropout(0.3)
+↓
+Output (2 values)
+Trainable Parameters: ~2.5M
 
-**Architecture:**
-```
-- Data Augmentation (flip, rotate, zoom)
-- Conv2D(32) + MaxPool + BatchNorm
-- Conv2D(64) + MaxPool + BatchNorm
-- Conv2D(128) + MaxPool + BatchNorm
-- Conv2D(256) + GlobalAvgPool
-- Dense(256) + Dropout(0.4)
-- Dense(128) + Dropout(0.3)
-- Output: Dense(2) → [quality_score, compliance_prob]
-```
+Model Outputs
+Quality Score: Continuous value (0–100)
 
-**Parameters:** ~2.5M trainable parameters
+Compliance Probability: Value between 0 and 1
 
-**Outputs:**
-1. **Quality Score** (0-100): Overall ad quality rating
-2. **Compliance** (0-1): Probability of passing compliance rules
-
----
-
-## 📊 Training Configuration
-
-```python
+⚙️ Training Configuration
+python
+Copy code
 CONFIG = {
     'img_height': 224,
     'img_width': 224,
@@ -120,229 +141,162 @@ CONFIG = {
     'learning_rate': 0.001,
     'seed': 42
 }
-```
+Dataset Split
 
-**Data Split:**
-- Training: 70% (700 samples)
-- Validation: 15% (150 samples)
-- Test: 15% (150 samples)
+Training: 70%
 
-**Callbacks:**
-- Early stopping (patience=5)
-- Learning rate reduction (factor=0.5, patience=3)
-- Model checkpointing (saves best model)
+Validation: 15%
 
----
+Test: 15%
 
-## 🔬 Training Process
+Callbacks
 
-### Synthetic Data Generation
+Early stopping
 
-The model is trained on procedurally generated synthetic ad images:
+Learning rate reduction
 
-**High Quality (Score: 70-100, Compliance: Pass)**
-- Structured rectangles (simulating text/images)
-- Good contrast and composition
-- 3+ design elements
+Best model checkpointing
 
-**Medium Quality (Score: 40-70, Conditional)**
-- Some structure
-- Moderate contrast
-- 2-3 design elements
+🧪 Synthetic Data Strategy
+The model is trained using procedurally generated ad creatives.
 
-**Low Quality (Score: 0-40, Fail)**
-- Mostly noise/unstructured
-- Poor contrast
-- Minimal design elements
+Quality Categories
+High Quality
 
-**Why Synthetic Data?**
-- Fast generation (no manual labeling)
-- Consistent quality levels
-- Easily scalable
-- Good for proof-of-concept
+Good contrast
 
-**For Production:** Replace with real retail ad dataset (e.g., scraped ads labeled by human annotators).
+Structured layout
 
----
+Multiple design elements
 
-## 📈 Expected Performance
+Medium Quality
 
-After 20 epochs:
+Partial structure
 
-- **Training Loss:** ~150-250
-- **Validation Loss:** ~200-300
-- **MAE (Quality Score):** ~10-15 points
-- **Compliance Accuracy:** ~85-95%
+Moderate contrast
 
-**Sample Predictions:**
-```
-True: [85.3, 1] | Pred: [82.1, 0.89]  → Grade: A, Pass
-True: [45.7, 0] | Pred: [48.2, 0.32]  → Grade: D, Fail
-True: [92.1, 1] | Pred: [88.5, 0.95]  → Grade: A, Pass
-```
+Fewer elements
 
----
+Low Quality
 
-## 🌐 Web Integration
+Poor contrast
 
-### Using TensorFlow.js Model
+Unstructured layout
 
-The trained model is automatically exported to TensorFlow.js format for browser use:
+Minimal elements
 
-```javascript
-// Load model in your web app
-const model = await tf.loadLayersModel('../models/tfjs_model/model.json');
+Why Synthetic Data?
+No manual labeling required
 
-// Preprocess image
+Fast and scalable
+
+Ideal for prototyping and validation
+
+For production use, replace synthetic data with human-labeled retail ad datasets.
+
+📈 Expected Performance
+After ~18–20 epochs:
+
+Training Loss: ~150–250
+
+Validation Loss: ~200–300
+
+MAE (Quality Score): ~10–15 points
+
+Compliance Accuracy: ~85–95%
+
+Example Predictions
+
+yaml
+Copy code
+True: [85.3, 1] | Pred: [82.1, 0.89]
+True: [45.7, 0] | Pred: [48.2, 0.32]
+True: [92.1, 1] | Pred: [88.5, 0.95]
+🌐 Browser Deployment (TensorFlow.js)
+The trained model is automatically exported to TensorFlow.js.
+
+Load Model
+javascript
+Copy code
+const model = await tf.loadLayersModel('models/tfjs_model/model.json');
+Run Inference
+javascript
+Copy code
 const img = tf.browser.fromPixels(imageElement)
   .resizeBilinear([224, 224])
   .expandDims(0)
   .toFloat();
 
-// Predict
-const predictions = model.predict(img);
-const [qualityScore, complianceProb] = await predictions.data();
-
-console.log(`Quality: ${qualityScore.toFixed(1)}/100`);
-console.log(`Compliance: ${complianceProb > 0.5 ? 'Pass' : 'Fail'}`);
-```
-
-### Integration with Editor
-
-Add this to `editor.js`:
-
-```javascript
-// Load AI model on page load
-let aiModel = null;
-
-async function loadAIModel() {
-    try {
-        aiModel = await tf.loadLayersModel('models/tfjs_model/model.json');
-        console.log('✅ AI model loaded');
-    } catch (error) {
-        console.error('Failed to load AI model:', error);
-    }
-}
-
-// Call when editor initializes
-loadAIModel();
-
-// Use for real-time scoring
+const [quality, compliance] = await model.predict(img).data();
+🧩 Editor Integration Example
+javascript
+Copy code
 async function analyzeAd(canvas) {
-    if (!aiModel) return null;
-    
-    const img = tf.browser.fromPixels(canvas.lowerCanvasEl)
-        .resizeBilinear([224, 224])
-        .expandDims(0)
-        .toFloat();
-    
-    const predictions = aiModel.predict(img);
-    const [quality, compliance] = await predictions.data();
-    
-    return {
-        qualityScore: Math.round(quality),
-        compliance: compliance > 0.5 ? 'Pass' : 'Fail'
-    };
+  const img = tf.browser.fromPixels(canvas.lowerCanvasEl)
+    .resizeBilinear([224, 224])
+    .expandDims(0)
+    .toFloat();
+
+  const [quality, compliance] = await aiModel.predict(img).data();
+
+  return {
+    qualityScore: Math.round(quality),
+    compliance: compliance > 0.5 ? 'Pass' : 'Fail'
+  };
 }
-```
+🛠 Troubleshooting
+TensorFlow not installed
 
----
-
-## 🔧 Troubleshooting
-
-### "No module named 'tensorflow'"
-```bash
+bash
+Copy code
 pip install tensorflow
-```
+TensorFlow.js converter issue
 
-### "Module 'tensorflowjs' has no attribute 'converters'"
-```bash
+bash
+Copy code
 pip install tensorflowjs --upgrade
-```
+Slow training
 
-### Training is slow
-- Use GPU if available
-- Reduce `epochs` to 10
-- Reduce `n_samples` to 500
+Reduce epochs
 
-### Out of memory
-- Reduce `batch_size` to 16
-- Reduce image size to 128×128
-- Reduce `n_samples`
+Reduce dataset size
 
-### Model not learning (loss not decreasing)
-- This is normal with synthetic data
-- Loss should decrease from ~800 to ~200-300
-- Focus on relative improvement, not absolute values
+Use GPU
 
----
+High memory usage
 
-## 📚 Model Files Explained
+Reduce batch size
 
-### `ad_quality_model_latest.keras`
-- Main model file (Keras SavedModel format)
-- Use for Python inference
-- ~10MB file size
+Reduce image resolution
 
-### `tfjs_model/`
-- Web-optimized format
-- Load in browser with TensorFlow.js
-- Multiple shard files (~12MB total)
+📦 Model Artifacts
+File	Description
+ad_quality_model_latest.keras	Main trained model
+best_model.keras	Best validation checkpoint
+tfjs_model/	Browser-ready model
+training_curves.png	Training metrics visualization
+model_metadata.json	Model configuration & stats
 
-### `model_metadata.json`
-- Training configuration
-- Performance metrics
-- Model version info
-- Input/output specifications
+🔮 Future Improvements
+Train on real retail ad datasets
 
-### `best_model.keras`
-- Checkpoint of best model during training
-- Based on validation loss
-- Use if latest model overfits
+Transfer learning (EfficientNet / ResNet)
 
----
+OCR-based text analysis
 
-## 🎓 Next Steps
+Color harmony evaluation
 
-### For Hackathon Submission:
+REST API deployment
 
-1. ✅ **You now have trained model files** → Show in `models/` folder
-2. ✅ **Training logs and curves** → Show in `logs/` folder
-3. ✅ **Complete training pipeline** → Show code in `training/`
+Continuous retraining pipeline
 
-### For Production:
+📚 References
+TensorFlow: https://www.tensorflow.org/
 
-1. **Collect Real Data**
-   - Scrape retail ads from web
-   - Label with quality scores (crowdsourcing)
-   - Aim for 10,000+ samples
+Keras: https://keras.io/
 
-2. **Improve Model**
-   - Use transfer learning (ResNet, EfficientNet)
-   - Add more features (text detection, color analysis)
-   - Fine-tune on real data
+TensorFlow.js: https://www.tensorflow.org/js
 
-3. **Deploy**
-   - Set up REST API (Flask/FastAPI)
-   - Containerize with Docker
-   - Deploy to cloud (AWS/GCP/Azure)
-
----
-
-## 📖 References
-
-- **TensorFlow:** https://www.tensorflow.org/
-- **Keras:** https://keras.io/
-- **TensorFlow.js:** https://www.tensorflow.org/js
-- **Transfer Learning:** https://www.tensorflow.org/tutorials/images/transfer_learning
-
----
-
-## 👥 Team Sarthak
-
-**Tesco Retail Media InnovAItion Jam 2025**
-
-
----
-
-**Questions?** Check logs for errors or review model summary in console output.
+👤 Author
+RetailSync AI – ML Training Pipeline
+Built for scalable, browser-first AI creative analysis.
