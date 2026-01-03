@@ -1,0 +1,39 @@
+{
+  "name": "RetailSync Synthetic Ad Dataset",
+  "version": "1.0",
+  "created": "2026-01-03T10:20:18.667379",
+  "description": "Synthetically generated retail ad images for quality and compliance training",
+  "statistics": {
+    "total_samples": 1000,
+    "train_samples": 700,
+    "val_samples": 150,
+    "test_samples": 150,
+    "image_size": [
+      224,
+      224,
+      3
+    ],
+    "categories": {
+      "high_quality": {
+        "count": 400,
+        "score_range": "70-100",
+        "compliance": "Pass"
+      },
+      "medium_quality": {
+        "count": 300,
+        "score_range": "40-70",
+        "compliance": "Conditional"
+      },
+      "low_quality": {
+        "count": 300,
+        "score_range": "0-40",
+        "compliance": "Fail"
+      }
+    }
+  },
+  "augmentation": {
+    "horizontal_flip": true,
+    "rotation_range": 0.1,
+    "zoom_range": 0.1
+  }
+}

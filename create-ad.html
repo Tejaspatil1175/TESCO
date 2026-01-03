@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RetailSync AI Creative Studio - Demo</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="animated-bg">
+        <div class="bg-gradient"></div>
+        <div class="bg-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <div class="brand-icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                        <path d="M2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                    </svg>
+                </div>
+                <span class="brand-text">RetailSync AI</span>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="create-ad.html" class="nav-link active">Quick Create</a>
+                <a href="editor.html" class="nav-link">Visual Editor</a>
+                <button class="btn-nav" onclick="window.location.href='editor.html'">Open Editor</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- Hero Section -->
+        <section class="hero-section" id="demo">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span class="badge-icon">✨</span>
+                    <span>AI-Powered Creative Intelligence</span>
+                </div>
+                <h1 class="hero-title">
+                    Transform Retail Data into
+                    <span class="gradient-text">Creative Gold</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Create high-performing retail media ads in 15 minutes with AI-powered insights,
+                    live compliance checking, and predictive analytics. No design skills required.
+                </p>
+                
+                <!-- Stats Bar -->
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">99.6%</div>
+                        <div class="stat-label">Time Saved</div>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-item">
+                        <div class="stat-number">95%</div>
+                        <div class="stat-label">Cost Reduction</div>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-item">
+                        <div class="stat-number">58%</div>
+                        <div class="stat-label">Better CTR</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Upload Section -->
+        <section class="upload-section" id="uploadSection">
+            <div class="section-header">
+                <div class="step-indicator">
+                    <span class="step-number active">1</span>
+                    <span class="step-line"></span>
+                    <span class="step-number">2</span>
+                    <span class="step-line"></span>
+                    <span class="step-number">3</span>
+                    <span class="step-line"></span>
+                    <span class="step-number">4</span>
+                </div>
+                <h2 class="section-title">Upload Your Product</h2>
+                <p class="section-desc">Start by uploading your product image. Our AI will analyze it instantly.</p>
+            </div>
+
+            <div class="upload-card">
+                <div class="upload-box" id="uploadBox">
+                    <div class="upload-icon">
+                        <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="17 8 12 3 7 8"></polyline>
+                            <line x1="12" y1="3" x2="12" y2="15"></line>
+                        </svg>
+                    </div>
+                    <h3 class="upload-title">Drop your product image here</h3>
+                    <p class="upload-desc">or click to browse from your computer</p>
+                    <input type="file" id="fileInput" accept="image/*" hidden>
+                    <button class="btn-upload" onclick="document.getElementById('fileInput').click()">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="17 8 12 3 7 8"></polyline>
+                            <line x1="12" y1="3" x2="12" y2="15"></line>
+                        </svg>
+                        Choose File
+                    </button>
+                    <div class="upload-formats">
+                        <span>Supported: JPG, PNG, WebP (Max 10MB)</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Analysis Section -->
+        <section class="analysis-section hidden" id="analysisSection">
+            <div class="section-header">
+                <div class="step-indicator">
+                    <span class="step-number completed">✓</span>
+                    <span class="step-line completed"></span>
+                    <span class="step-number active">2</span>
+                    <span class="step-line"></span>
+                    <span class="step-number">3</span>
+                    <span class="step-line"></span>
+                    <span class="step-number">4</span>
+                </div>
+                <h2 class="section-title">AI Analysis Complete</h2>
+                <p class="section-desc">We've analyzed your product and gathered retail intelligence</p>
+            </div>
+
+            <!-- AI Insights Dashboard -->
+            <div class="insights-dashboard">
+                <!-- Product Info Card -->
+                <div class="insight-card glass-card">
+                    <div class="card-header">
+                        <div class="card-icon" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                                <polyline points="21 15 16 10 5 21"></polyline>
+                            </svg>
+                        </div>
+                        <h3>Product Intelligence</h3>
+                    </div>
+                    <div class="card-content">
+                        <div class="info-row">
+                            <span class="info-label">Product</span>
+                            <span class="info-value">Premium Motor Oil</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Category</span>
+                            <span class="info-value">Automotive Care</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Quality Score</span>
+                            <span class="info-value">
+                                <span class="score-badge excellent">92/100</span>
+                            </span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Image Quality</span>
+                            <div class="quality-bar">
+                                <div class="quality-fill" style="width: 92%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Color Palette Card -->
+                <div class="insight-card glass-card">
+                    <div class="card-header">
+                        <div class="card-icon" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <path d="M12 2v20M2 12h20"></path>
+                            </svg>
+                        </div>
+                        <h3>Brand Colors</h3>
+                    </div>
+                    <div class="card-content">
+                        <div class="color-palette-modern">
+                            <div class="color-item">
+                                <div class="color-swatch" style="background: #FFD700;"></div>
+                                <span class="color-code">#FFD700</span>
+                            </div>
+                            <div class="color-item">
+                                <div class="color-swatch" style="background: #1A1A1A;"></div>
+                                <span class="color-code">#1A1A1A</span>
+                            </div>
+                            <div class="color-item">
+                                <div class="color-swatch" style="background: #E63946;"></div>
+                                <span class="color-code">#E63946</span>
+                            </div>
+                            <div class="color-item">
+                                <div class="color-swatch" style="background: #F1F1F1;"></div>
+                                <span class="color-code">#F1F1F1</span>
+                            </div>
+                        </div>
+                        <div class="color-recommendation">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                            </svg>
+                            <span>Colors optimized for retail media</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Retail Insights Card -->
+                <div class="insight-card glass-card">
+                    <div class="card-header">
+                        <div class="card-icon" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                                <line x1="12" y1="1" x2="12" y2="23"></line>
+                                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                            </svg>
+                        </div>
+                        <h3>Live Retail Data</h3>
+                        <span class="live-badge">
+                            <span class="live-dot"></span>
+                            LIVE
+                        </span>
+                    </div>
+                    <div class="card-content">
+                        <div class="info-row">
+                            <span class="info-label">Peak Sales Time</span>
+                            <span class="info-value">Weekends 5-7 PM</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Top Region</span>
+                            <span class="info-value">Maharashtra Urban</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Stock Level</span>
+                            <span class="info-value">
+                                <span class="stock-badge low">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <line x1="12" y1="8" x2="12" y2="12"></line>
+                                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                                    </svg>
+                                    23 units left
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Performance Prediction Card -->
+                <div class="insight-card glass-card prediction-card">
+                    <div class="card-header">
+                        <div class="card-icon" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                            </svg>
+                        </div>
+                        <h3>Performance Prediction</h3>
+                        <span class="confidence-badge">87% Confidence</span>
+                    </div>
+                    <div class="card-content">
+                        <div class="prediction-main">
+                            <div class="prediction-metric">
+                                <span class="metric-label">Predicted CTR</span>
+                                <span class="metric-value-large">1.9%</span>
+                                <span class="metric-comparison positive">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <polyline points="18 15 12 9 6 15"></polyline>
+                                    </svg>
+                                    58% above avg
+                                </span>
+                            </div>
+                            <div class="prediction-metric">
+                                <span class="metric-label">Predicted ROAS</span>
+                                <span class="metric-value-large">₹4.50</span>
+                                <span class="metric-comparison positive">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <polyline points="18 15 12 9 6 15"></polyline>
+                                    </svg>
+                                    per ₹1 spent
+                                </span>
+                            </div>
+                        </div>
+                        <div class="performance-rating">
+                            <div class="rating-stars">
+                                <span class="star filled">★</span>
+                                <span class="star filled">★</span>
+                                <span class="star filled">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                            </div>
+                            <span class="rating-text">Excellent Performance Expected</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Templates Section -->
+        <section class="templates-section hidden" id="templatesSection">
+            <div class="section-header">
+                <div class="step-indicator">
+                    <span class="step-number completed">✓</span>
+                    <span class="step-line completed"></span>
+                    <span class="step-number completed">✓</span>
+                    <span class="step-line completed"></span>
+                    <span class="step-number active">3</span>
+                    <span class="step-line"></span>
+                    <span class="step-number">4</span>
+                </div>
+                <h2 class="section-title">AI-Recommended Templates</h2>
+                <p class="section-desc">Top 3 proven templates optimized for your product category</p>
+            </div>
+
+            <div class="templates-grid">
+                <!-- Template 1 -->
+                <div class="template-card-modern">
+                    <div class="template-badge best">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                        </svg>
+                        Best Performer
+                    </div>
+                    <div class="template-preview-modern">
+                        <img src="assets/t1.png" alt="Template 1" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22400%22%3E%3Crect fill=%22%23667eea%22 width=%22400%22 height=%22400%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 font-size=%2224%22 fill=%22white%22 text-anchor=%22middle%22 dy=%22.3em%22%3ETemplate 1%3C/text%3E%3C/svg%3E'">
+                    </div>
+                    <div class="template-info-modern">
+                        <h4>Minimalist Pro</h4>
+                        <p class="template-description">Clean design that highlights your product with maximum impact</p>
+                        <div class="template-metrics">
+                            <div class="metric-chip">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
+                                    <line x1="7" y1="7" x2="7.01" y2="7"></line>
+                                </svg>
+                                2.3% CTR
+                            </div>
+                            <div class="metric-chip">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="9" cy="7" r="4"></circle>
+                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                </svg>
+                                47 brands
+                            </div>
+                            <div class="metric-chip">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="12" y1="1" x2="12" y2="23"></line>
+                                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                                </svg>
+                                ₹12L revenue
+                            </div>
+                        </div>
+                        <button class="btn-template" onclick="selectTemplate(1)">
+                            Select Template
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Template 2 -->
+                <div class="template-card-modern">
+                    <div class="template-badge recommended">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                        </svg>
+                        AI Recommended
+                    </div>
+                    <div class="template-preview-modern">
+                        <img src="assets/t2.png" alt="Template 2" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22400%22%3E%3Crect fill=%22%23f093fb%22 width=%22400%22 height=%22400%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 font-size=%2224%22 fill=%22white%22 text-anchor=%22middle%22 dy=%22.3em%22%3ETemplate 2%3C/text%3E%3C/svg%3E'">
+                    </div>
+                    <div class="template-info-modern">
+                        <h4>Bold Impact</h4>
+                        <p class="template-description">Eye-catching design with strong visual hierarchy and contrast</p>
+                        <div class="template-metrics">
+                            <div class="metric-chip">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
+                                    <line x1="7" y1="7" x2="7.01" y2="7"></line>
+                                </svg>
+                                2.8% CTR
+                            </div>
+                            <div class="metric-chip">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                                </svg>
+                                Best in category
+                            </div>
+                        </div>
+                        <button class="btn-template" onclick="selectTemplate(2)">
+                            Select Template
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Template 3 -->
+                <div class="template-card-modern">
+                    <div class="template-preview-modern">
+                        <img src="assets/t3.png" alt="Template 3" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22400%22%3E%3Crect fill=%22%234facfe%22 width=%22400%22 height=%22400%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 font-size=%2224%22 fill=%22white%22 text-anchor=%22middle%22 dy=%22.3em%22%3ETemplate 3%3C/text%3E%3C/svg%3E'">
+                    </div>
+                    <div class="template-info-modern">
+                        <h4>Premium Elite</h4>
+                        <p class="template-description">Sophisticated layout perfect for premium product positioning</p>
+                        <div class="template-metrics">
+                            <div class="metric-chip">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
+                                    <line x1="7" y1="7" x2="7.01" y2="7"></line>
+                                </svg>
+                                2.1% CTR
+                            </div>
+                            <div class="metric-chip">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                                    <polyline points="17 6 23 6 23 12"></polyline>
+                                </svg>
+                                High conversion
+                            </div>
+                        </div>
+                        <button class="btn-template" onclick="selectTemplate(3)">
+                            Select Template
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final Ad Section -->
+        <section class="final-section hidden" id="finalAdSection">
+            <div class="section-header">
+                <div class="step-indicator">
+                    <span class="step-number completed">✓</span>
+                    <span class="step-line completed"></span>
+                    <span class="step-number completed">✓</span>
+                    <span class="step-line completed"></span>
+                    <span class="step-number completed">✓</span>
+                    <span class="step-line completed"></span>
+                    <span class="step-number active">4</span>
+                </div>
+                <h2 class="section-title">Your Ad is Ready! 🎉</h2>
+                <p class="section-desc">AI-optimized creative ready for multi-platform deployment</p>
+            </div>
+
+            <div class="final-content">
+                <!-- Main Preview -->
+                <div class="final-preview-container">
+                    <div class="compliance-indicator">
+                        <div class="compliance-score">
+                            <div class="score-circle">
+                                <svg width="120" height="120">
+                                    <circle cx="60" cy="60" r="54" fill="none" stroke="#e5e7eb" stroke-width="8"/>
+                                    <circle cx="60" cy="60" r="54" fill="none" stroke="url(#gradient)" stroke-width="8" 
+                                            stroke-dasharray="339.292" stroke-dashoffset="27" stroke-linecap="round"
+                                            transform="rotate(-90 60 60)"/>
+                                    <defs>
+                                        <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                            <stop offset="0%" style="stop-color:#10b981;stop-opacity:1" />
+                                            <stop offset="100%" style="stop-color:#34d399;stop-opacity:1" />
+                                        </linearGradient>
+                                    </defs>
+                                </svg>
+                                <div class="score-text">
+                                    <span class="score-number">92</span>
+                                    <span class="score-label">Score</span>
+                                </div>
+                            </div>
+                            <div class="compliance-details">
+                                <h4>Compliance Check</h4>
+                                <div class="compliance-item pass">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <polyline points="20 6 9 17 4 12"></polyline>
+                                    </svg>
+                                    <span>Logo placement perfect</span>
+                                </div>
+                                <div class="compliance-item pass">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <polyline points="20 6 9 17 4 12"></polyline>
+                                    </svg>
+                                    <span>Color palette approved</span>
+                                </div>
+                                <div class="compliance-item pass">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <polyline points="20 6 9 17 4 12"></polyline>
+                                    </svg>
+                                    <span>Text hierarchy optimal</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="final-preview">
+                        <video controls autoplay loop muted style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
+                            <source src="assets/ad2.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                </div>
+
+                <!-- Multi-Format Showcase -->
+                <div class="format-showcase">
+                    <h3>Export to Multiple Formats</h3>
+                    <div class="format-grid">
+                        <div class="format-item">
+                            <div class="format-icon">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                                    <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect>
+                                    <line x1="7" y1="2" x2="7" y2="22"></line>
+                                    <line x1="17" y1="2" x2="17" y2="22"></line>
+                                    <line x1="2" y1="12" x2="22" y2="12"></line>
+                                    <line x1="2" y1="7" x2="7" y2="7"></line>
+                                    <line x1="2" y1="17" x2="7" y2="17"></line>
+                                    <line x1="17" y1="17" x2="22" y2="17"></line>
+                                    <line x1="17" y1="7" x2="22" y2="7"></line>
+                                </svg>
+                            </div>
+                            <h4>Facebook Feed</h4>
+                            <p class="format-size">1200×1200</p>
+                        </div>
+                        <div class="format-item">
+                            <div class="format-icon">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                                    <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+                                    <line x1="12" y1="18" x2="12.01" y2="18"></line>
+                                </svg>
+                            </div>
+                            <h4>Instagram Story</h4>
+                            <p class="format-size">1080×1920</p>
+                        </div>
+                        <div class="format-item">
+                            <div class="format-icon">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                                    <rect x="2" y="7" width="20" height="10" rx="2" ry="2"></rect>
+                                    <line x1="2" y1="13" x2="22" y2="13"></line>
+                                </svg>
+                            </div>
+                            <h4>Display Ad</h4>
+                            <p class="format-size">728×90</p>
+                        </div>
+                        <div class="format-item">
+                            <div class="format-icon">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                                    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                                    <rect x="2" y="9" width="4" height="12"></rect>
+                                    <circle cx="4" cy="4" r="2"></circle>
+                                </svg>
+                            </div>
+                            <h4>LinkedIn Post</h4>
+                            <p class="format-size">1200×627</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <button class="btn-primary-action" onclick="exportAllFormats()">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="7 10 12 15 17 10"></polyline>
+                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                        </svg>
+                        Export All Formats
+                    </button>
+                    <button class="btn-secondary-action" onclick="resetDemo()">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="1 4 1 10 7 10"></polyline>
+                            <polyline points="23 20 23 14 17 14"></polyline>
+                            <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"></path>
+                        </svg>
+                        Create New Ad
+                    </button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

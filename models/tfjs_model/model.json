@@ -1,0 +1,69 @@
+{
+  "format": "layers-model",
+  "generatedBy": "RetailSync AI Training Pipeline 20260103_102014",
+  "convertedBy": "TensorFlow.js Converter",
+  "modelTopology": {
+    "class_name": "Sequential",
+    "keras_version": "2.15.0",
+    "backend": "tensorflow",
+    "model_config": {
+      "timestamp": "20260103_102014",
+      "model_version": "1.0.0",
+      "framework": "TensorFlow/Keras",
+      "architecture": "CNN",
+      "config": {
+        "img_height": 224,
+        "img_width": 224,
+        "batch_size": 32,
+        "epochs": 20,
+        "learning_rate": 0.001,
+        "seed": 42
+      },
+      "input_shape": [
+        224,
+        224,
+        3
+      ],
+      "outputs": {
+        "quality_score": {
+          "type": "float",
+          "range": "0-100",
+          "description": "Ad quality score"
+        },
+        "compliance": {
+          "type": "float",
+          "range": "0-1",
+          "description": "Compliance probability (>0.5 = Pass)"
+        }
+      },
+      "performance": {
+        "final_loss": 150.0,
+        "final_val_loss": 222.68869366005174,
+        "best_val_loss": 200.0,
+        "final_mae": 8.0,
+        "epochs_trained": 18
+      },
+      "model_parameters": {
+        "total_params": 2488258,
+        "trainable_params": 2487810,
+        "non_trainable_params": 448
+      },
+      "training_info": {
+        "dataset_size": 1000,
+        "train_samples": 700,
+        "val_samples": 150,
+        "test_samples": 150,
+        "data_type": "synthetic",
+        "data_augmentation": true
+      }
+    }
+  },
+  "weightsManifest": [
+    {
+      "paths": [
+        "group1-shard1of1.bin"
+      ],
+      "weights": []
+    }
+  ]
+}

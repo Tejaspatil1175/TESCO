@@ -1,0 +1,5 @@
+# Lightweight Training - Minimal Dependencies
+# Only requires numpy and matplotlib (optional)
+
+numpy>=1.24.0
+matplotlib>=3.7.0

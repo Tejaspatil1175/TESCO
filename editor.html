@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creative Editor - RetailSync AI</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="editor.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Fabric.js for Canvas Editing -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.0/fabric.min.js"></script>
+    
+    <!-- Color Thief for Color Extraction -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
+    
+    <!-- Google Fonts for Typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Playfair+Display:wght@400;700&family=Montserrat:wght@400;700&family=Poppins:wght@400;700&family=Oswald:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="animated-bg">
+        <div class="bg-gradient"></div>
+        <div class="bg-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <div class="brand-icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                        <path d="M2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                    </svg>
+                </div>
+                <span class="brand-text">RetailSync AI</span>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="create-ad.html" class="nav-link">Quick Create</a>
+                <a href="editor.html" class="nav-link active">Visual Editor</a>
+                <button class="btn-nav" onclick="window.location.href='index.html'">Back to Home</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="editor-container">
+        <!-- Left Sidebar - Tools -->
+        <div class="editor-sidebar left-sidebar">
+            <div class="sidebar-header">
+                <h3>Tools</h3>
+            </div>
+
+            <!-- Upload Section -->
+            <div class="tool-section">
+                <h4>Assets</h4>
+                <button class="tool-btn" id="uploadImageBtn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                        <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                        <polyline points="21 15 16 10 5 21"></polyline>
+                    </svg>
+                    Upload Image
+                </button>
+                <input type="file" id="imageUpload" accept="image/*" hidden>
+                
+                <button class="tool-btn" id="uploadBackgroundBtn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                    </svg>
+                    Upload Background
+                </button>
+                <input type="file" id="backgroundUpload" accept="image/*" hidden>
+            </div>
+
+            <!-- Text Tools -->
+            <div class="tool-section">
+                <h4>Text</h4>
+                <button class="tool-btn" id="addTextBtn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="4 7 4 4 20 4 20 7"></polyline>
+                        <line x1="9" y1="20" x2="15" y2="20"></line>
+                        <line x1="12" y1="4" x2="12" y2="20"></line>
+                    </svg>
+                    Add Text
+                </button>
+                <button class="tool-btn" id="addHeadingBtn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M6 4v16M18 4v16M8 12h8"></path>
+                    </svg>
+                    Add Heading
+                </button>
+            </div>
+
+            <!-- Shapes -->
+            <div class="tool-section">
+                <h4>Shapes</h4>
+                <button class="tool-btn" id="addRectBtn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                    </svg>
+                    Rectangle
+                </button>
+                <button class="tool-btn" id="addCircleBtn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                    </svg>
+                    Circle
+                </button>
+            </div>
+
+            <!-- Image Tools -->
+            <div class="tool-section">
+                <h4>Image Tools</h4>
+                <button class="tool-btn" id="removeBgBtn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"></path>
+                        <line x1="18" y1="9" x2="12" y2="15"></line>
+                        <line x1="12" y1="9" x2="18" y2="15"></line>
+                    </svg>
+                    Remove Background
+                </button>
+                <button class="tool-btn" id="flipHorizontalBtn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="12" y1="2" x2="12" y2="22"></line>
+                        <polyline points="19 15 12 22 5 15"></polyline>
+                        <polyline points="5 9 12 2 19 9"></polyline>
+                    </svg>
+                    Flip Horizontal
+                </button>
+                <button class="tool-btn" id="flipVerticalBtn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="2" y1="12" x2="22" y2="12"></line>
+                        <polyline points="15 5 22 12 15 19"></polyline>
+                        <polyline points="9 19 2 12 9 5"></polyline>
+                    </svg>
+                    Flip Vertical
+                </button>
+            </div>
+
+            <!-- Alignment Tools -->
+            <div class="tool-section">
+                <h4>Align & Arrange</h4>
+                <div class="align-grid">
+                    <button class="align-btn" onclick="alignObject('left')" title="Align Left">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <line x1="3" y1="12" x2="15" y2="12"></line>
+                            <line x1="3" y1="18" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                    <button class="align-btn" onclick="alignObject('center')" title="Align Center">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="6" x2="6" y2="6"></line>
+                            <line x1="21" y1="12" x2="3" y2="12"></line>
+                            <line x1="18" y1="18" x2="6" y2="18"></line>
+                        </svg>
+                    </button>
+                    <button class="align-btn" onclick="alignObject('right')" title="Align Right">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="21" y1="6" x2="3" y2="6"></line>
+                            <line x1="21" y1="12" x2="9" y2="12"></line>
+                            <line x1="21" y1="18" x2="6" y2="18"></line>
+                        </svg>
+                    </button>
+                    <button class="align-btn" onclick="alignObject('top')" title="Align Top">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="6" y1="3" x2="6" y2="21"></line>
+                            <line x1="12" y1="3" x2="12" y2="15"></line>
+                            <line x1="18" y1="3" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                    <button class="align-btn" onclick="alignObject('middle')" title="Align Middle">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="6" y1="6" x2="6" y2="18"></line>
+                            <line x1="12" y1="3" x2="12" y2="21"></line>
+                            <line x1="18" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                    <button class="align-btn" onclick="alignObject('bottom')" title="Align Bottom">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="6" y1="21" x2="6" y2="3"></line>
+                            <line x1="12" y1="21" x2="12" y2="9"></line>
+                            <line x1="18" y1="21" x2="18" y2="6"></line>
+                        </svg>
+                    </button>
+                </div>
+                <button class="tool-btn" id="lockObjectBtn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                    </svg>
+                    Lock/Unlock
+                </button>
+            </div>
+
+            <!-- Templates -->
+            <div class="tool-section">
+                <h4>Quick Templates</h4>
+                <button class="tool-btn template-btn" onclick="loadTemplate('minimal')">
+                    <span>Minimal Pro</span>
+                </button>
+                <button class="tool-btn template-btn" onclick="loadTemplate('bold')">
+                    <span>Bold Impact</span>
+                </button>
+                <button class="tool-btn template-btn" onclick="loadTemplate('premium')">
+                    <span>Premium Elite</span>
+                </button>
+            </div>
+
+            <!-- AI Assistant -->
+            <div class="tool-section">
+                <h4>AI Assistant</h4>
+                <button class="tool-btn" id="extractColorsBtn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <path d="M12 2v20M2 12h20"></path>
+                    </svg>
+                    Extract Colors
+                </button>
+                <button class="tool-btn" id="suggestLayoutBtn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                        <path d="M2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                    </svg>
+                    Auto Arrange
+                </button>
+            </div>
+
+            <!-- Save/Load -->
+            <div class="tool-section">
+                <h4>Projects</h4>
+                <button class="tool-btn" id="saveProjectBtn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                        <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                        <polyline points="7 3 7 8 15 8"></polyline>
+                    </svg>
+                    Save Project
+                </button>
+                <button class="tool-btn" id="loadProjectBtn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 3h18v18H3zM12 8v8m-4-4h8"></path>
+                    </svg>
+                    Load Project
+                </button>
+            </div>
+        </div>
+
+        <!-- Main Canvas Area -->
+        <div class="editor-main">
+            <div class="canvas-toolbar">
+                <div class="toolbar-group">
+                    <button class="toolbar-btn" id="toggleLeftSidebarBtn" title="Toggle Tools">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                            <line x1="9" y1="3" x2="9" y2="21"></line>
+                        </svg>
+                    </button>
+                    <button class="toolbar-btn" id="toggleRightSidebarBtn" title="Toggle Properties">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                            <line x1="15" y1="3" x2="15" y2="21"></line>
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="toolbar-group">
+                    <button class="toolbar-btn" id="undoBtn" title="Undo">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 7v6h6"></path>
+                            <path d="M21 17a9 9 0 00-9-9 9 9 0 00-6 2.3L3 13"></path>
+                        </svg>
+                    </button>
+                    <button class="toolbar-btn" id="redoBtn" title="Redo">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 7v6h-6"></path>
+                            <path d="M3 17a9 9 0 019-9 9 9 0 016 2.3l3 2.7"></path>
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="toolbar-group">
+                    <button class="toolbar-btn" id="deleteBtn" title="Delete">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="3 6 5 6 21 6"></polyline>
+                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                        </svg>
+                    </button>
+                    <button class="toolbar-btn" id="duplicateBtn" title="Duplicate">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="toolbar-group">
+                    <button class="toolbar-btn" id="bringForwardBtn" title="Bring Forward">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="17 11 12 6 7 11"></polyline>
+                            <polyline points="17 18 12 13 7 18"></polyline>
+                        </svg>
+                    </button>
+                    <button class="toolbar-btn" id="sendBackwardBtn" title="Send Backward">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="7 13 12 18 17 13"></polyline>
+                            <polyline points="7 6 12 11 17 6"></polyline>
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="toolbar-group">
+                    <select id="canvasSizeSelect" class="canvas-size-select">
+                        <option value="1080x1080">Instagram Square (1080x1080)</option>
+                        <option value="1080x1920">Instagram Story (1080x1920)</option>
+                        <option value="1200x628">Facebook Post (1200x628)</option>
+                        <option value="1200x1200">Facebook Square (1200x1200)</option>
+                        <option value="728x90">Display Banner (728x90)</option>
+                    </select>
+                </div>
+
+                <div class="toolbar-group">
+                    <button class="toolbar-btn-primary" id="exportBtn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="7 10 12 15 17 10"></polyline>
+                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                        </svg>
+                        Export
+                    </button>
+                </div>
+            </div>
+
+            <div class="canvas-wrapper">
+                <canvas id="canvas"></canvas>
+            </div>
+
+            <!-- Compliance Score Panel -->
+            <div class="compliance-panel" id="compliancePanel">
+                <div class="compliance-header">
+                    <h4>Compliance Score</h4>
+                    <span class="compliance-score-badge" id="complianceScore">--</span>
+                </div>
+                <div class="compliance-checks" id="complianceChecks">
+                    <!-- Will be populated by JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Sidebar - Properties -->
+        <div class="editor-sidebar right-sidebar">
+            <div class="sidebar-header">
+                <h3>Properties</h3>
+            </div>
+
+            <!-- Object Properties -->
+            <div class="properties-panel" id="objectProperties">
+                <p class="no-selection">Select an object to edit properties</p>
+            </div>
+
+            <!-- Color Palette Section -->
+            <div class="tool-section">
+                <h4>Saved Colors</h4>
+                <div class="color-palette-grid" id="savedColors">
+                    <!-- Saved colors will appear here -->
+                </div>
+                <button class="tool-btn-small" id="saveColorBtn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                    Save Current Color
+                </button>
+            </div>
+
+            <!-- Effects & Filters -->
+            <div class="tool-section" id="effectsSection" style="display: none;">
+                <h4>Image Filters</h4>
+                <button class="tool-btn-small" onclick="applyFilter('grayscale')">Grayscale</button>
+                <button class="tool-btn-small" onclick="applyFilter('sepia')">Sepia</button>
+                <button class="tool-btn-small" onclick="applyFilter('invert')">Invert</button>
+                <button class="tool-btn-small" onclick="applyFilter('blur')">Blur</button>
+                <button class="tool-btn-small" onclick="applyFilter('sharpen')">Sharpen</button>
+                <button class="tool-btn-small" onclick="applyFilter('none')">Remove Filter</button>
+                
+                <h4 style="margin-top: 16px;">Adjustments</h4>
+                <div class="property-group">
+                    <label>Brightness</label>
+                    <input type="range" class="property-input" id="brightnessSlider" min="-100" max="100" value="0" 
+                           oninput="adjustImage('brightness', this.value)">
+                </div>
+                <div class="property-group">
+                    <label>Contrast</label>
+                    <input type="range" class="property-input" id="contrastSlider" min="-100" max="100" value="0" 
+                           oninput="adjustImage('contrast', this.value)">
+                </div>
+                <div class="property-group">
+                    <label>Saturation</label>
+                    <input type="range" class="property-input" id="saturationSlider" min="-100" max="100" value="0" 
+                           oninput="adjustImage('saturation', this.value)">
+                </div>
+            </div>
+
+            <!-- Layers Panel -->
+            <div class="tool-section">
+                <h4>Layers</h4>
+                <div class="layers-list" id="layersList">
+                    <!-- Layers will be populated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Export Modal -->
+    <div class="modal" id="exportModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Export Creative</h3>
+                <button class="modal-close" onclick="closeExportModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="export-options">
+                    <h4>Select Formats to Export</h4>
+                    <div class="format-checkboxes">
+                        <label class="format-checkbox">
+                            <input type="checkbox" value="1080x1080" checked>
+                            <span>Instagram Square (1080×1080)</span>
+                        </label>
+                        <label class="format-checkbox">
+                            <input type="checkbox" value="1080x1920" checked>
+                            <span>Instagram Story (1080×1920)</span>
+                        </label>
+                        <label class="format-checkbox">
+                            <input type="checkbox" value="1200x628" checked>
+                            <span>Facebook Post (1200×628)</span>
+                        </label>
+                        <label class="format-checkbox">
+                            <input type="checkbox" value="1200x1200">
+                            <span>Facebook Square (1200×1200)</span>
+                        </label>
+                        <label class="format-checkbox">
+                            <input type="checkbox" value="728x90">
+                            <span>Display Banner (728×90)</span>
+                        </label>
+                    </div>
+
+                    <h4>Export Quality</h4>
+                    <select id="exportQuality" class="export-select">
+                        <option value="0.95">High Quality (larger file)</option>
+                        <option value="0.85" selected>Balanced Quality</option>
+                        <option value="0.75">Compressed (<500KB)</option>
+                    </select>
+
+                    <h4>File Format</h4>
+                    <select id="exportFormat" class="export-select">
+                        <option value="png">PNG (transparent support)</option>
+                        <option value="jpeg">JPEG (smaller size)</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeExportModal()">Cancel</button>
+                <button class="btn-primary" onclick="startExport()">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="7 10 12 15 17 10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                    Export All
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="editor.js"></script>
+</body>
+</html>
