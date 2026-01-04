@@ -1,25 +1,64 @@
-// DOM Elements
-const fileInput = document.getElementById('fileInput');
-const uploadBox = document.getElementById('uploadBox');
-const uploadSection = document.getElementById('uploadSection');
-const analysisSection = document.getElementById('analysisSection');
-const templatesSection = document.getElementById('templatesSection');
-const finalAdSection = document.getElementById('finalAdSection');
+// DOM Elements - with null checks for safety
+let fileInput, uploadBox, uploadSection, analysisSection, templatesSection, finalAdSection;
 
 // State
 let uploadedImage = null;
 let selectedTemplate = null;
+let currentRetailInsights = null;
+let currentProductCategory = 'snacks'; // Default category
+
+// Product categories based on image analysis simulation
+const PRODUCT_CATEGORIES = ['snacks', 'beverages', 'dairy', 'personal_care', 'household', 'frozen', 'bakery'];
 
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
-    setupEventListeners();
+    // Safe DOM element initialization
+    fileInput = document.getElementById('fileInput');
+    uploadBox = document.getElementById('uploadBox');
+    uploadSection = document.getElementById('uploadSection');
+    analysisSection = document.getElementById('analysisSection');
+    templatesSection = document.getElementById('templatesSection');
+    finalAdSection = document.getElementById('finalAdSection');
+    
+    // Only setup if we're on create-ad page
+    if (uploadBox && fileInput) {
+        setupEventListeners();
+    }
+    
     addSmoothScrolling();
+    initializeRetailData();
+    
+    console.log('✅ App initialized');
 });
+
+// Initialize Retail Data API
+function initializeRetailData() {
+    try {
+        if (typeof RetailDataAPI !== 'undefined') {
+            console.log('✅ RetailDataAPI loaded successfully');
+            // Pre-fetch trending data
+            const trending = RetailDataAPI.getTrendingProducts('snacks');
+            console.log('📊 Trending products loaded:', trending?.length || 0);
+        }
+    } catch (error) {
+        console.warn('⚠️ RetailDataAPI initialization error:', error.message);
+    }
+}
 
 // Event Listeners Setup
 function setupEventListeners() {
+    if (!fileInput || !uploadBox) {
+        console.warn('Upload elements not found, skipping event setup');
+        return;
+    }
+    
     fileInput.addEventListener('change', handleFileSelect);
-    uploadBox.addEventListener('click', () => fileInput.click());
+    uploadBox.addEventListener('click', (e) => {
+        // Prevent click if clicking on the button inside
+        if (e.target.tagName !== 'BUTTON') {
+            fileInput.click();
+        }
+    });
     uploadBox.addEventListener('dragover', handleDragOver);
     uploadBox.addEventListener('dragleave', handleDragLeave);
     uploadBox.addEventListener('drop', handleDrop);
@@ -75,8 +114,17 @@ function processFile(file) {
     uploadedImage = file;
     showLoadingState();
     
-    // Simulate AI processing
+    // Simulate AI processing with retail data fetch
     setTimeout(() => {
+        // Randomly pick a category to simulate AI detection
+        currentProductCategory = PRODUCT_CATEGORIES[Math.floor(Math.random() * PRODUCT_CATEGORIES.length)];
+        
+        // Fetch real retail insights
+        if (typeof RetailDataAPI !== 'undefined') {
+            currentRetailInsights = RetailDataAPI.getProductInsights('PROD_001', currentProductCategory);
+            console.log('📈 Retail insights loaded for category:', currentProductCategory);
+        }
+        
         showAnalysisSection();
     }, 2500);
 }
@@ -96,6 +144,9 @@ function showLoadingState() {
 function showAnalysisSection() {
     uploadSection.classList.add('hidden');
     analysisSection.classList.remove('hidden');
+    
+    // Update UI with real retail data
+    updateRetailDataUI();
     
     // Animate cards
     const cards = analysisSection.querySelectorAll('.insight-card');
@@ -127,6 +178,56 @@ function showAnalysisSection() {
     setTimeout(() => {
         analysisSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }, 300);
+}
+
+// Update UI with Retail Data API
+function updateRetailDataUI() {
+    if (!currentRetailInsights) return;
+    
+    // Update Product Intelligence
+    const categoryDisplay = currentProductCategory.charAt(0).toUpperCase() + currentProductCategory.slice(1).replace('_', ' ');
+    const categoryValueEl = document.querySelector('.info-row:nth-child(2) .info-value');
+    if (categoryValueEl) {
+        categoryValueEl.textContent = categoryDisplay;
+    }
+    
+    // Update Live Retail Data section
+    const retailCard = document.querySelector('.insight-card:nth-child(3) .card-content');
+    if (retailCard && currentRetailInsights) {
+        const peakTimeEl = retailCard.querySelector('.info-row:nth-child(1) .info-value');
+        const regionEl = retailCard.querySelector('.info-row:nth-child(2) .info-value');
+        const stockEl = retailCard.querySelector('.info-row:nth-child(3) .info-value');
+        
+        if (peakTimeEl) peakTimeEl.textContent = currentRetailInsights.peakSalesTime || 'Weekends 5-7 PM';
+        if (regionEl) regionEl.textContent = currentRetailInsights.topRegion || 'Maharashtra Urban';
+        
+        if (stockEl && currentRetailInsights.stockLevel) {
+            const stockLevel = currentRetailInsights.stockLevel;
+            let stockClass = 'healthy';
+            if (stockLevel < 30) stockClass = 'low';
+            if (stockLevel < 15) stockClass = 'critical';
+            
+            stockEl.innerHTML = `
+                <span class="stock-badge ${stockClass}">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="8" x2="12" y2="12"></line>
+                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                    </svg>
+                    ${stockLevel} units left
+                </span>
+            `;
+        }
+    }
+    
+    // Update Performance Prediction
+    const predictionCard = document.querySelector('.prediction-card .card-content');
+    if (predictionCard && currentRetailInsights) {
+        const ctrEl = predictionCard.querySelector('.metric-value-large');
+        if (ctrEl && currentRetailInsights.predictedCTR) {
+            ctrEl.textContent = currentRetailInsights.predictedCTR.toFixed(1) + '%';
+        }
+    }
 }
 
 // Show Templates Section

@@ -3,22 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RetailSync AI Creative Studio - Home</title>
+    <title>RetailSync AI - Transform Retail Data into Creative Gold | Tesco Hackathon 2025</title>
+    <meta name="description" content="AI-powered retail media creative tool. Create high-performing ads in 15 minutes with live retail data, compliance checking, and predictive analytics.">
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%237c3aed' stroke-width='2'%3E%3Cpath d='M12 2L2 7l10 5 10-5-10-5z'/%3E%3Cpath d='M2 17l10 5 10-5M2 12l10 5 10-5'/%3E%3C/svg%3E">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="RetailSync AI - AI-Powered Retail Media Creative Tool">
+    <meta property="og:description" content="Create high-performing retail media ads in 15 minutes with AI-powered insights.">
+    <meta property="og:type" content="website">
 </head>
-<body>
-    <!-- Animated Background -->
-    <div class="animated-bg">
-        <div class="bg-gradient"></div>
-        <div class="bg-shapes">
-            <div class="shape shape-1"></div>
-            <div class="shape shape-2"></div>
-            <div class="shape shape-3"></div>
-        </div>
-    </div>
+<body class="theme-violet">
+    <!-- Clean Background -->
+    <div class="animated-bg"></div>
 
     <!-- Navigation -->
     <nav class="navbar">
@@ -42,61 +44,136 @@
     </nav>
 
     <div class="container">
-        <!-- Hero Section -->
+        <!-- Hero Section - Professional Asymmetric Layout -->
         <section class="hero-section">
-            <div class="hero-content">
-                <div class="hero-badge">
-                    <span class="badge-icon">✨</span>
-                    <span>AI-Powered Creative Intelligence</span>
+            <div class="hero-grid">
+                <!-- Left Content -->
+                <div class="hero-content">
+                    <div class="hero-badge">
+                        <div class="badge-dot"></div>
+                        <span>AI-Powered Creative Intelligence</span>
+                    </div>
+                    <h1 class="hero-title">
+                        Transform Retail Data into
+                        <span class="gradient-text">Creative Gold</span>
+                    </h1>
+                    <p class="hero-subtitle">
+                        Create high-performing retail media ads in 15 minutes with AI-powered insights,
+                        live compliance checking, and predictive analytics.
+                    </p>
+                    
+                    <!-- CTA Buttons -->
+                    <div class="hero-cta">
+                        <button class="btn-primary-large" onclick="window.location.href='editor.html'">
+                            <span>Start Creating</span>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg>
+                        </button>
+                        <button class="btn-secondary-large" onclick="window.location.href='create-ad.html'">
+                            Watch Demo
+                        </button>
+                    </div>
+                    
+                    <!-- Trust Indicators -->
+                    <div class="hero-trust">
+                        <div class="trust-avatars">
+                            <div class="trust-avatar" style="background: #7c3aed;">T</div>
+                            <div class="trust-avatar" style="background: #f97316;">R</div>
+                            <div class="trust-avatar" style="background: #22c55e;">M</div>
+                        </div>
+                        <span class="trust-text">Trusted by <strong>50+ Retail Media teams</strong></span>
+                    </div>
                 </div>
-                <h1 class="hero-title">
-                    Transform Retail Data into
-                    <span class="gradient-text">Creative Gold</span>
-                </h1>
-                <p class="hero-subtitle">
-                    Create high-performing retail media ads in 15 minutes with AI-powered insights,
-                    live compliance checking, and predictive analytics. No design skills required.
-                </p>
                 
-                <!-- CTA Buttons -->
-                <div class="hero-cta">
-                    <button class="btn-primary-large" onclick="window.location.href='editor.html'">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <polygon points="10 8 16 12 10 16 10 8"></polygon>
+                <!-- Right Visual - Dashboard Preview -->
+                <div class="hero-visual">
+                    <div class="preview-card">
+                        <div class="preview-header">
+                            <div class="preview-dots">
+                                <span></span><span></span><span></span>
+                            </div>
+                            <span class="preview-title">RetailSync Editor</span>
+                        </div>
+                        <div class="preview-content">
+                            <div class="preview-sidebar">
+                                <div class="preview-menu-item active"></div>
+                                <div class="preview-menu-item"></div>
+                                <div class="preview-menu-item"></div>
+                                <div class="preview-menu-item"></div>
+                            </div>
+                            <div class="preview-main">
+                                <div class="preview-canvas">
+                                    <div class="preview-ad">
+                                        <div class="preview-ad-image"></div>
+                                        <div class="preview-ad-text">
+                                            <div class="preview-ad-title"></div>
+                                            <div class="preview-ad-desc"></div>
+                                            <div class="preview-ad-cta"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="preview-panel">
+                                    <div class="preview-score">
+                                        <div class="score-ring">
+                                            <svg viewBox="0 0 36 36">
+                                                <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#e5e5e5" stroke-width="3"/>
+                                                <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#7c3aed" stroke-width="3" stroke-dasharray="87, 100"/>
+                                            </svg>
+                                            <span>87</span>
+                                        </div>
+                                        <div class="score-label">AI Score</div>
+                                    </div>
+                                    <div class="preview-metrics">
+                                        <div class="metric-bar"><span style="width: 92%"></span></div>
+                                        <div class="metric-bar"><span style="width: 78%"></span></div>
+                                        <div class="metric-bar"><span style="width: 85%"></span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Floating Elements -->
+                    <div class="floating-card card-1">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5">
+                            <polyline points="20 6 9 17 4 12"></polyline>
                         </svg>
-                        Start Creating Now
-                    </button>
-                    <button class="btn-secondary-large" onclick="window.location.href='create-ad.html'">
-                        Quick Demo
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <line x1="5" y1="12" x2="19" y2="12"></line>
-                            <polyline points="12 5 19 12 12 19"></polyline>
-                        </svg>
-                    </button>
+                        <span>Compliance Passed</span>
+                    </div>
+                    <div class="floating-card card-2">
+                        <div class="mini-chart">
+                            <span style="height: 40%"></span>
+                            <span style="height: 65%"></span>
+                            <span style="height: 85%"></span>
+                            <span style="height: 70%"></span>
+                        </div>
+                        <span>CTR +58%</span>
+                    </div>
                 </div>
-                
-                <!-- Stats Bar -->
-                <div class="hero-stats">
-                    <div class="stat-item">
-                        <div class="stat-number">99.6%</div>
-                        <div class="stat-label">Time Saved</div>
-                    </div>
-                    <div class="stat-divider"></div>
-                    <div class="stat-item">
-                        <div class="stat-number">95%</div>
-                        <div class="stat-label">Cost Reduction</div>
-                    </div>
-                    <div class="stat-divider"></div>
-                    <div class="stat-item">
-                        <div class="stat-number">58%</div>
-                        <div class="stat-label">Better CTR</div>
-                    </div>
-                    <div class="stat-divider"></div>
-                    <div class="stat-item">
-                        <div class="stat-number">₹3,549Cr</div>
-                        <div class="stat-label">Market Size 2030</div>
-                    </div>
+            </div>
+            
+            <!-- Stats Bar -->
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <div class="stat-number">99.6%</div>
+                    <div class="stat-label">Time Saved</div>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <div class="stat-number">95%</div>
+                    <div class="stat-label">Cost Reduction</div>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <div class="stat-number">58%</div>
+                    <div class="stat-label">Better CTR</div>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <div class="stat-number">₹3,549Cr</div>
+                    <div class="stat-label">Market Size 2030</div>
                 </div>
             </div>
         </section>
@@ -221,6 +298,78 @@
             </div>
         </section>
 
+        <!-- Demo Video Section -->
+        <section class="demo-video-section">
+            <div class="section-header">
+                <h2 class="section-title">See RetailSync AI in Action</h2>
+                <p class="section-desc">Watch how we transform retail data into high-performing creatives</p>
+            </div>
+
+            <div class="video-showcase">
+                <div class="video-container">
+                    <video id="demoVideo" controls poster="assets/video-poster.jpg" preload="metadata">
+                        <source src="assets/ad2.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="video-overlay" onclick="playDemoVideo()">
+                        <div class="play-button-large">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="white">
+                                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                            </svg>
+                        </div>
+                        <span class="video-duration">2:45</span>
+                    </div>
+                </div>
+
+                <div class="video-features">
+                    <div class="video-feature-item">
+                        <div class="feature-check">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                        </div>
+                        <div class="feature-text">
+                            <strong>Live Retail Intelligence</strong>
+                            <span>Real-time data from POS systems</span>
+                        </div>
+                    </div>
+                    <div class="video-feature-item">
+                        <div class="feature-check">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                        </div>
+                        <div class="feature-text">
+                            <strong>AI Performance Prediction</strong>
+                            <span>Know CTR before you spend</span>
+                        </div>
+                    </div>
+                    <div class="video-feature-item">
+                        <div class="feature-check">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                        </div>
+                        <div class="feature-text">
+                            <strong>Smart Compliance Engine</strong>
+                            <span>Auto-validates retailer guidelines</span>
+                        </div>
+                    </div>
+                    <div class="video-feature-item">
+                        <div class="feature-check">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                        </div>
+                        <div class="feature-text">
+                            <strong>One-Click Export</strong>
+                            <span>8+ formats in seconds</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Testimonials -->
         <section class="testimonials">
             <div class="section-header">
@@ -312,6 +461,32 @@
         </div>
     </footer>
 
-    <script src="app.js"></script>
+    <script>
+        // Play demo video
+        function playDemoVideo() {
+            const video = document.getElementById('demoVideo');
+            const overlay = document.querySelector('.video-overlay');
+            if (video && overlay) {
+                overlay.style.display = 'none';
+                video.play();
+            }
+        }
+
+        // Pause video shows overlay again
+        document.addEventListener('DOMContentLoaded', () => {
+            const video = document.getElementById('demoVideo');
+            const overlay = document.querySelector('.video-overlay');
+            if (video && overlay) {
+                video.addEventListener('pause', () => {
+                    if (video.currentTime === 0 || video.ended) {
+                        overlay.style.display = 'flex';
+                    }
+                });
+                video.addEventListener('ended', () => {
+                    overlay.style.display = 'flex';
+                });
+            }
+        });
+    </script>
 </body>
 </html>
